@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Asap:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap');
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 2px;  
+  line-height: 2rem; /* increases, so wrapping headers don't overlap */ 
+
+}
+
+body {
+  font-family: "Asap";
+  color: #1f1f1f;
+}
+
+.distill-site-header .logo img{
+  max-height: 40px; /* Makes logo bigger, default was 20px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
