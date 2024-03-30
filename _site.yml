@@ -7,7 +7,7 @@ creative_comms: CC BY
 favicon: images/favicon.png
 navbar:
   logo:
-    image: images/logo.png
+    image: images/logo2.jpg
   right:
     - text: "Home"
       href: index.html

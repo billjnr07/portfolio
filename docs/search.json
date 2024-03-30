@@ -6,15 +6,14 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2024-03-28T12:05:58-04:00"
+      "last_modified": "2024-03-29T05:50:19-04:00"
     },
     {
       "path": "index.html",
       "title": "Bill Muchero",
-      "description": "Welcome to the website. I hope you enjoy it!\n",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2024-03-28T12:05:58-04:00"
+      "contents": "\n\n          \n          \n          \n          \n          Bill Muchero\n          \n          \n          Home\n          Projects\n          About\n          ☰\n          \n          \n      \n        \n          \n            \n              \n            \n              Bill Muchero\n            \n            \n              \n                \n                    \n                      \n                        LinkedIn\n                      \n                    \n                  \n                                    \n                    \n                      \n                        Email\n                      \n                    \n                  \n                                  \n            \n          \n        \n        \n        \n          \n            \n            Bio\n            My name is Bill Muchero and I am currently pursuing a\n            master’s degree in data science and analytics. I am\n            passionate about business and I’m looking to pursue a career\n            in business intelligence and analytics.\n            \n            \n            Education\n            Grand Valley State University | Grand\n            Rapids, MI\n            M.S. in Data Science & Analytics | August 2023 - May\n            2025\n            Cornerstone University | Grand Rapids,\n            MI\n            B.S. in International Business | August 2018 - May\n            2022\n            \n            \n            Experience\n            Google Brain | Principal Investigator |\n            January 2018 - Present\n            Global Nomands Group | Business Analyst\n            & CCL Co-Team Leader | January 2022 - May 2022\n            \n          \n        \n      \n    \n\n    \n      \n        \n          \n            \n              \n            \n              Bill Muchero\n            \n            \n              \n                \n                                    \n                    \n                      LinkedIn\n                    \n                  \n                                    \n                    \n                      Email\n                    \n                  \n                                  \n              \n            \n            \n              \n              Bio\n              My name is Bill Muchero and I am currently pursuing a\n              master’s degree in data science and analytics. I am\n              passionate about business and I’m looking to pursue a\n              career in business intelligence and analytics.\n              \n              \n              Education\n              Grand Valley State University | Grand\n              Rapids, MI\n              M.S. in Data Science & Analytics | August 2023 -\n              May 2025\n              Cornerstone University | Grand Rapids,\n              MI\n              B.S. in International Business | August 2018 - May\n              2022\n              \n              \n              Experience\n              Google Brain | Principal Investigator\n              | January 2018 - Present\n              Global Nomands Group | Business\n              Analyst & CCL Co-Team Leader | January 2022 - May\n              2022\n              \n            \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2024-03-29T05:50:27-04:00"
     },
     {
       "path": "myprojects.html",
@@ -28,7 +27,7 @@
       ],
       "date": "`r Sys.Date()`",
       "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill for R Markdown at https://rstudio.github.io/distill.\n\n\n\n",
-      "last_modified": "2024-03-28T12:05:59-04:00"
+      "last_modified": "2024-03-29T05:50:28-04:00"
     }
   ],
   "collections": []
