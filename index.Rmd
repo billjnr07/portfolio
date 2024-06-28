@@ -4,8 +4,6 @@ image: images/bill.png
 links:
   - label: LinkedIn
     url: "www.linkedin.com/in/bill-muchero"
-  - label: Email
-    url: "bmuchero243@gmail.com"
 output:
   postcards::trestles
 site: distill::distill_website
