@@ -1,22 +1,4 @@
 ---
-title: "My Projects"
-description: |
-  A new article created using the Distill format.
-author:
-  - name: Bill Muchero 
-date: "`r Sys.Date()`"
-output: distill::distill_article
+title: "Class Projects"
+listing: projects
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
-
-Distill is a publication format for scientific and technical writing, native to the web. 
-
-Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
-
-
-
-
-
