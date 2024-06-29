@@ -1,7 +1,7 @@
 ---
 title: "Unemployment and the Stock Market"
 description: |
-  A short description of the post.
+  This semester (winter '24) I took a Statistical Modeling and Regression class were we learned how to build and assess regression models. Having taken 2 stats classes before this, I didn't know what to expect from this class. Needless to say I didn't know that much about building regression models. To conclude the semester, we had an opportunity to showcase what we had learned over the course of this semester. Therefore, this project will aim to create a regression and assess how fit the model is. To do that, I will look at how unemployment and potentially interest rates have affected the Standard & Poor's 500 (S&P500) index, a stock market index that tracks the performance of the 500 largest companies that are listed on the United States stock exchange.
 author:
   - name: Bill Muchero
 date: 2024-06-29
@@ -13,6 +13,11 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(tidymodels)
+library(GGally)
+library(readr)
+library(ggplot2)
 ```
 
 Distill is a publication format for scientific and technical writing, native to the web.

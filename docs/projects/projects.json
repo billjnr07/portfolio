@@ -1,0 +1,19 @@
+[
+  {
+    "path": "projects/2024-06-29-unemployment-and-the-stock-market/",
+    "title": "Unemployment and the Stock Market",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Bill Muchero",
+        "url": {}
+      }
+    ],
+    "date": "2024-06-29",
+    "categories": [],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2024-06-29T12:28:56-04:00",
+    "input_file": {}
+  }
+]
