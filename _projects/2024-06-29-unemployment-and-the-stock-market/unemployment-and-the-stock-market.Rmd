@@ -20,8 +20,28 @@ library(readr)
 library(ggplot2)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
+## Objective
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+One would assume that as unemployment rates increase, less money circulates which leads to people hording money. For those who have stocks, some might be forced to sell some of their stocks to generate income. On the other hand, interest rates also play a part in how the stock market moves. As interest rates increase, share prices fall because companies are not willing to borrow money at a premium. While I will aim to explore the relationship (using the R software package) between unemployment and interest rates with the S&P500, the steps I will take to reach that destination will also aim to satisfy the following course objectives:
+
+1. Describe probability as a foundation of statistical modeling, including inference and maximum likelihood estimation
+
+2. Determine and apply the appropriate generalized linear model for a specific data context
+
+3. Conduct model selection for a set of candidate models
+
+4. Communicate the results of statistical models to a general audience
+
+5. Use programming software (i.e., R) to fit and assess statistical models
+
+To satisfy these objectives, I will be analyzing the impact of unemployment rate on the S&P 500 and this analysis will be done in R. 
+
+## Analysis
+
+**Describe probability as a foundation of statistical modeling, including inference and maximum likelihood estimation**
+
+Linear regression is a technique that allows us to create a model that predicts the value of unknown data by using values that are already known. In this case, I have collected data on the unemployment rate, the stock prices and interest rate. The model will be built using this data and in turn the data will be used to predict (probability) what will happen to stock prices if unemployment changes and vice versa.
+
+For this analysis, I will join three separate datasets, real interest rate, unemployment data, and the S&P 500 data. The real interest rate dataset was obtained from https://fred.stlouisfed.org/series/REAINTRATREARAT10Y and it spans over a 30 year period. The unemployment data was obtained from https://www.bls.gov/charts/employment-situation/civilian-unemployment-rate.htm and it spans over a 20 year period. For the stock data I narrowed it down to the S&P 500, since its an index fund it contains stocks from various industries and sectors of business. That data spanned over 20 years. 
 
 
