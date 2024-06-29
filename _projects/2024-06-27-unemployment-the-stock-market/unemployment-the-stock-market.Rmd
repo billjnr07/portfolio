@@ -1,5 +1,5 @@
 ---
-title: "Unemployment & the Stock Market"
+title: "Unemployment and the Stock Market"
 description: |
   This semester (winter '24) I took a Statistical Modeling and Regression class were we learned how to build and assess regression models. Having taken 2 stats classes before this, I didn't know what to expect from this class. Needless to say I didn't know that much about building regression models. To conclude the semester, we had an opportunity to showcase what we had learned over the course of this semester. Therefore, this project will aim to create a regression and assess how fit the model is. To do that, I will look at how unemployment and potentially interest rates have affected the Standard & Poor's 500 (S&P500) index, a stock market index that tracks the performance of the 500 largest companies that are listed on the United States stock exchange.
 author:
@@ -282,6 +282,7 @@ Below are the results I am most interested in. Interestingly, the model that inc
 ```{r}
 glance(mlr_mod_demo)
 ```
+
 ```{r}
 glance(mlr_Wh_Bl)
 ```
@@ -372,7 +373,7 @@ The goal of this analysis was to satisfy the following objectives and I will sta
 5. Use programming software (i.e., R) to fit and assess statistical models. This was satisfied by this whole processes. By doing this project in R, I was able to use R to fit and assess statistical models using the test-train process and the `glance()` function as well. 
 
 
-```{r}
+{r}
 rmarkdown::render("unemployment-the-stock-market.Rmd")
 ```
 
