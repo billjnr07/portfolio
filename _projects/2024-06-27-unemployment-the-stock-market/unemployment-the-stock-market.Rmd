@@ -47,9 +47,9 @@ For this analysis, I will join three separate datasets, real interest rate, unem
 
 ```{r, warning=FALSE, message=FALSE}
 # Importing the data
-interest_rate <- read_csv("Real Interest Rate.csv")
-unemployment_data <- read_csv("Unemployment Data.csv")
-spFive <- read_csv("^SPX.csv")
+interest_rate <- read_csv("https://raw.githubusercontent.com/billjnr07/portfolio/main/Real%20Interest%20Rate.csv")
+unemployment_data <- read_csv("https://raw.githubusercontent.com/billjnr07/portfolio/main/Unemployment%20Data.csv")
+spFive <- read_csv("https://raw.githubusercontent.com/billjnr07/portfolio/main/%5ESPX.csv")
 ```
 **Joining Data**
 
@@ -371,4 +371,8 @@ The goal of this analysis was to satisfy the following objectives and I will sta
 
 5. Use programming software (i.e., R) to fit and assess statistical models. This was satisfied by this whole processes. By doing this project in R, I was able to use R to fit and assess statistical models using the test-train process and the `glance()` function as well. 
 
+
+```{r}
+rmarkdown::render("unemployment-the-stock-market.Rmd")
+```
 
