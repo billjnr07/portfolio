@@ -1,7 +1,7 @@
 ---
 title: "Unemployment and the Stock Market"
 description: |
-  This semester (winter '24) I took a Statistical Modeling and Regression class were we learned how to build and assess regression models. Having taken 2 stats classes before this, I didn't know what to expect from this class. Needless to say I didn't know that much about building regression models. To conclude the semester, we had an opportunity to showcase what we had learned over the course of this semester. Therefore, this project will aim to create a regression and assess how fit the model is. To do that, I will look at how unemployment and potentially interest rates have affected the Standard & Poor's 500 (S&P500) index, a stock market index that tracks the performance of the 500 largest companies that are listed on the United States stock exchange.
+  This project will look to show some of the techniques I learned while taking a Statistical Modeling and Regression class were we learned how to build and assess regression models. 
 author:
   - name: Bill Muchero
 date: 2024-06-29
@@ -19,6 +19,10 @@ library(GGally)
 library(readr)
 library(ggplot2)
 ```
+
+## Background
+
+This semester (winter '24) I took a Statistical Modeling and Regression class were we learned how to build and assess regression models. Having taken 2 stats classes before this, I didn't know what to expect from this class. Needless to say I didn't know that much about building regression models. To conclude the semester, we had an opportunity to showcase what we had learned over the course of this semester. Therefore, this project will aim to create a regression and assess how fit the model is. To do that, I will look at how unemployment and potentially interest rates have affected the Standard & Poor's 500 (S&P500) index, a stock market index that tracks the performance of the 500 largest companies that are listed on the United States stock exchange.
 
 ## Objective
 
@@ -44,4 +48,292 @@ Linear regression is a technique that allows us to create a model that predicts 
 
 For this analysis, I will join three separate datasets, real interest rate, unemployment data, and the S&P 500 data. The real interest rate dataset was obtained from https://fred.stlouisfed.org/series/REAINTRATREARAT10Y and it spans over a 30 year period. The unemployment data was obtained from https://www.bls.gov/charts/employment-situation/civilian-unemployment-rate.htm and it spans over a 20 year period. For the stock data I narrowed it down to the S&P 500, since its an index fund it contains stocks from various industries and sectors of business. That data spanned over 20 years. 
 
+```{r}
+# Importing data
+interest_rate <- read_csv("https://raw.githubusercontent.com/billjnr07/portfolio/main/Real%20Interest%20Rate.csv")
+unemployment_data <- read_csv("https://raw.githubusercontent.com/billjnr07/portfolio/main/Unemployment%20Data.csv")
+spFive <- read_csv("https://raw.githubusercontent.com/billjnr07/portfolio/main/%5ESPX.csv")
+```
+**Joining Data**
 
+To join the three datasets mentioned above, I used 'date' as the key since it was the only common variable among all three datasets. This process generated the `stockData` dataset that contains all three datasets.
+
+```{r, warning=FALSE, message=FALSE}
+# Joining the unemployment data with the S&P 500 data using left_join
+stockData <- unemployment_data |>
+  left_join(spFive, by = join_by(Date))
+
+# Converting column names to lower case
+names(stockData) <- tolower(names(stockData))
+
+# Joining the newly created `stockData` with the interest rate data
+stockData <- stockData |>
+  left_join(interest_rate, by = join_by(date))
+
+# Rounding off the interest rate column
+stockData <- stockData |>
+  mutate(real_interest_rate = round(real_interest_rate, 2))
+```
+
+## Exploring variables
+
+To get a summary statistic of `stockData` to understand the nature of the data.
+
+```{r}
+# To get a summary for the stockData
+summary(stockData)
+```
+Firstly, I will visualize the distribution of the variables of interest to see their distribution across time. Since I am mainly interested the ethnic variables especially `white` Americans and `black or african american`, the plots below will have the date as the x variable (independent) and the respective demographic will be the y variable (dependent).
+
+However, for the analysis that comes after that, I will be exploring the relationship between the closing price of the S&P 500 and other variables such as the unemployment rate of African Americans and the unemployment rate of women 20 years and older.
+
+**Multiple Linear Regression**
+
+When it comes to multiple linear regression, there are several assumptions about the data. One of the most common ones is linear relationship. we expected our data to have a linear relationship (correlation), in other words, the closing price and the unemployment rate need to move in a straight line whether negatively or positively.
+
+Below are some graphs that visualize the relationship between the closing price variable and other variables.
+
+**Relationship between close price and the unemployment rate of men and women over 20 years**
+
+```{r, warning=FALSE}
+stockData |>
+  select(`men, 20 years and over`, `women, 20 years and over`, close) |>
+  ggpairs()
+```
+Plot Results: As highlighted by the negative "Corr:" score, there is negative correlation between the age variables with the close price variable. In other words, when close price goes up, unemployment decreases and vice versa when close prices goes down.
+
+**Relationship between close price and the unemployment rate of certain demographics**
+
+```{r, warning=FALSE}
+stockData |>
+  select(white, `black or african american`, close) |>
+  ggpairs()
+```
+Plot Results: As highlighted by the negative "Corr:" score, there is negative correlation between the demographics variables with the close price variable. In other words, although not definitive, when close price goes up, unemployment for both White Americans and African Americans decreases and vice versa when close prices goes down.
+
+**Relationship between close price and total unemployment and real interest rate**
+
+```{r, warning=FALSE}
+stockData |>
+  select(total, real_interest_rate, close) |>
+  ggpairs()
+```
+Plot Results: As highlighted by the negative "Corr:" score, there is negative correlation between the dependent variables with the close price variable.
+
+**Example**
+
+To highlight the negative correlation, the plot below has a line that shows how the points are plotted on the graph, highlighting how there is negative correction.
+
+```{r, warning=FALSE, message=FALSE}
+stockData |>
+  ggplot(aes(close, y = white)) +
+  geom_point(na.rm = TRUE) +
+  geom_smooth(method=lm, se=FALSE)
+```
+```{r, warning=FALSE, message=FALSE}
+stockData |>
+  ggplot(aes(close, y = `black or african american`)) +
+  geom_point(na.rm = TRUE) +
+  geom_smooth(method=lm, se=FALSE)
+```
+## Calculating the correlation
+
+Another way we can calculate the correlation between vectors or variables is by using the `cor()` function which serves the same purpose as the graphs/plots above.
+
+```{r}
+stockData |>
+  na.omit() |>
+  with(cor(close, total))
+```
+
+```{r}
+stockData |>
+  na.omit() |>
+  with(cor(close, `black or african american`))
+```
+```{r}
+stockData |>
+  na.omit() |>
+  with(cor(close, white))
+```
+
+## Creating Multiple Linear Model
+
+**Determine and apply the appropriate generalized linear model for a specific data context**
+
+For this analysis, I am interested to see if there are specific factors (mentioned at the beginning of this report) that affect the close price of the S&P 500. Since unemployment can be broken up by different demographics including age and ethnicity, I will mainly focus on enthnicity to see whether we need a multiple linear model or a single linear model.
+
+**Using `parsnip` to create specific linear model**
+
+```{r parsnip-spec}
+library(parsnip)
+
+# Setting the mode to regression and engine to linear model
+lm_spec <- linear_reg() %>%
+  set_mode("regression") %>%
+  set_engine("lm")
+
+lm_spec
+```
+## Models
+
+*Use programming software (i.e., R) to fit and assess statistical models*
+
+**This multiple linear model (mlr) will look at `total` unemployment and `real_interest_rate`**
+
+```{r general variables lm}
+mlr_mod_tot <- lm_spec %>% 
+  fit(close ~ total + real_interest_rate, data = stockData)
+
+tidy(mlr_mod_tot)
+```
+Results: If `total` or `real_interest_rate` are at 0 then the mean close would be 4867 (intercept estimate). In addition, for every 1 unit increase in `total`, `close` will decrease by -343.69; whereas a 1 unit increase in `total` will decrease `close` by -738.8.
+
+**This model will look at the age variables.**
+
+```{r age variables lm}
+mlr_mod_age <- lm_spec %>% 
+  fit(close ~ `men, 20 years and over` + `women, 20 years and over` + `16 to 19 years old`, data = stockData)
+
+tidy(mlr_mod_age)
+```
+Results: If `men, 20 years and over`, `women, 20 years and over` or `16 to 19 years old` are at 0 then the mean close would be 5222.2 (intercept estimate).
+
+For 1 unit increase in `men, 20 years and over`, `close` will increase by 151.4
+For 1 unit increase in `women, 20 years and over`, `close` will increase by 399.96
+For 1 unit increase in `16 to 19 years old`, `close` will decrease by -344.9
+
+**This model will look at the ethnicity variables.**
+
+```{r}
+mlr_mod_demo <- lm_spec %>% 
+  fit(close ~ white + `black or african american` + `hispanic or latino`, data = stockData)
+
+tidy(mlr_mod_demo)
+```
+Results: If `white`, `black or african american` or `hispanic or latino` are at 0 then the mean close would be 4668.84 (intercept estimate).
+
+For 1 unit increase in `white`, `close` will increase by 72.2
+For 1 unit increase in `black or african american`, `close` will decrease by -605.07
+For 1 unit increase in `hispanic or latino`, `close` will increase by 438.44
+
+**This model excludes the `hispanic or latino` variable.**
+
+```{r}
+mlr_Wh_Bl <- lm_spec %>% 
+  fit(close ~ white + `black or african american`, data = stockData)
+
+tidy(mlr_Wh_Bl)
+```
+If `white` or `black or african american` are at 0 then the mean close would be 4492.86 (intercept estimate).
+
+For 1 unit increase in `white`, `close` will increase by 679.0
+For 1 unit increase in `black or african american`, `close` will decrease by -582.84
+
+## Glance at models
+
+To assess the goodness of fit of our models, we use the `glance()` function. Basically, this function tell us how good our model is by giving the model a "score." Unfortunately, there is no ideal "score" but the closer we get to one the better our model. Below I shall interpret the results of each model by looking at the r.squared value. 
+
+```{r glance}
+glance(mlr_mod_tot)
+```
+Results: This model looks at total unemployment rate and real interest rate. Looking at the r.squared value, it is hard to say this is a good model.
+
+```{r}
+glance(mlr_mod_age)
+```
+Results: This model is built using at the age variables and it seems to perform better that the model 
+
+Below are the results I am most interested in. Interestingly, the model that included the `Hispanic or Latino` ethnicity has a better r.squared result as compared to the model that excluded that ethnicity.
+
+```{r}
+glance(mlr_mod_demo)
+```
+```{r}
+glance(mlr_Wh_Bl)
+```
+Since the model above did not perform as well as I hoped they will, I will go a step further and generated simple linear models for the `white` ethnicity and the `black or african american` ethnicity to see how they will perform individually.
+
+```{r}
+lmr_african <- lm_spec %>% 
+  fit(close ~ `black or african american`, data = stockData)
+
+tidy(lmr_african)
+
+glance(lmr_african)
+```
+```{r}
+lmr_white <- lm_spec %>% 
+  fit(close ~ white, data = stockData)
+
+tidy(lmr_white)
+
+glance(lmr_white)
+```
+Interestingly, both simple linear models have r.squared values that are lower than the both the multiple linear models that preceded them.
+
+**Conduct model selection for a set of candidate models**
+
+## Final Model
+
+This part will aim to: 
+
+1. Determine and apply the appropriate generalized linear model for a specific data context
+2. Conduct model selection for a set of candidate models
+
+To choose my final model, I will work through the test/train process of fitting and assessing the models.
+
+```{r train-test}
+# Setting the seed
+set.seed(07)
+
+# Putting 80% of the data into a training set
+stockData_split <- initial_split(stockData, prop = 0.80)
+
+# Assigning the two splits to data frames
+stockData_train <- training(stockData_split)
+stockData_test <- testing(stockData_split)
+
+stockData_train
+```
+To choose a model between the different ethnic models I had, I decided to go with the model that had the highest r.squared value which was the model with all three ethnic variables. I made this decision because everytime I removed a variable, the r.squared value kept on decreasing (model performance was not improving).
+
+```{r}
+mlr_Traindemo <- lm_spec %>% 
+  fit(close ~ white + `black or african american` + `hispanic or latino`, data = stockData_train)
+
+tidy(mlr_Traindemo)
+
+glance(mlr_Traindemo)
+```
+```{r glance-test}
+train_aug <- augment(mlr_Traindemo, new_data = stockData_test)
+train_aug
+```
+**Communicate the results of statistical models to a general audience**
+
+Results: Since the .resid (residual) values are negative, it means the predicted value is too high. This result makes it difficult to justify how accurate our model is. However, the plot below show random distribution between the predicted values and the residuals which means they are linear appropriate.
+
+```{r fitted-residual, warning=FALSE}
+ggplot(data = train_aug, aes(x = .pred, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+## Conclusion
+
+In summation, there are a few things I can improve on which are highlighted by this project. It was hard to state how accurate my model was mainly due to the lack of data to create the model. My `stockData` was over a 20 year period, which is not enough if we want to have a good model. Without industry knowledge, it's hard to know what a good r.squared value is hence I just went with the one closer to 1. In addition, I still need to work on how to interpret the results of a test-train process. Overall, as I reflect on this process, I have learned a lot more about models than I ever thought I could.
+
+The goal of this analysis was to satisfy the following objectives and I will state how I satisfied the objective:
+
+1. Describe probability as a foundation of statistical modeling, including inference and maximum likelihood estimation. I did this in the beginning of the **Analysis** section by defining what linear regression is. When it comes to modeling, the goal is to build a model that can predict a certain outcome. This prediction relies on probability which is derived from the historical data used to create the model.
+
+2. Determine and apply the appropriate generalized linear model for a specific data context. Since unemployment can be broken up in various ways, I was curious to see how each ethnicity affects the stock prices. In this context, I ended up having both simple linear models and multiple linear models because the unemployment data was broken up into different demographics, hence I could build a model from one variable or multiple ones.
+
+3. Conduct model selection for a set of candidate models. To perform this, I built different models and using the various demographic variables that I had along with total unemployment rate and interest rate. Once I had all the models, I used the `glance()` function to get the r.squared values of the models. From here I chose the ethnic model with the highest r.squared value because that is what I was interest in investigating.
+
+4. Communicate the results of statistical models to a general audience. I communicated the results whenever I could. From talking about the distribution of the histograms to interpreting correlation results, I believed I was able to communicate results to a general audience.
+
+5. Use programming software (i.e., R) to fit and assess statistical models. This was satisfied by this whole processes. By doing this project in R, I was able to use R to fit and assess statistical models using the test-train process and the `glance()` function as well. 
