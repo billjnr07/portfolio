@@ -3,7 +3,7 @@ title: "Bill Muchero"
 image: images/bill.png
 links:
   - label: LinkedIn
-    url: "www.linkedin.com/in/bill-muchero"
+    url: "https://www.linkedin.com/in/bill-muchero/"
 output:
   postcards::trestles
 site: distill::distill_website
@@ -11,15 +11,15 @@ site: distill::distill_website
  
 ## Bio
 
-My name is Bill Muchero and I am currently pursuing a master's degree in data science
-and analytics. I am passionate about business and I'm looking to pursue a career
-in business intelligence and analytics.
+My name is Bill Muchero and I’m a data-driven analyst with a solid foundation in both business strategy and technical analytics, holding a Master’s in Data Science and Analytics and a Bachelor’s in International Business. My skills in Power BI, Python, R, and SQL help me turn complex data into clear, actionable insights that support smarter decision-making.
+
+In previous roles, I’ve built interactive dashboards, researched AI tools for qualitative analysis, and contributed to cross-functional projects focused on data collection and visualization. I'm passionate about solving problems with data and making a measurable impact through analytical thinking and effective communication.
 
 ## Education
 
 **Grand Valley State University** | Grand Rapids, MI
 
-M.S. in Data Science & Analytics | August 2023 - May 2025
+M.S. in Data Science & Analytics | August 2023 - April 2025
 
 **Cornerstone University** | Grand Rapids, MI
 
