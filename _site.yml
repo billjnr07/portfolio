@@ -6,8 +6,6 @@ output_dir: "docs"
 creative_comms: CC BY
 favicon: images/favicon.png
 navbar:
-  logo:
-    image: images/logo2.jpg
   right:
     - text: "Home"
       href: index.html
